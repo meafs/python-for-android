@@ -1,0 +1,18 @@
+diff --git a/kivy/__init__.py b/kivy/__init__.py
+index bf6d4865a..958533b96 100644
+--- a/kivy/__init__.py
++++ b/kivy/__init__.py
+@@ -482,6 +482,13 @@ def kivy_usage():
+         Config.set('graphics', 'fullscreen', 'auto')
+         Config.remove_section('input')
+         Config.add_section('input')
++        try:
++            import certifi
++            environ['SSL_CERT_FILE'] = certifi.where()
++        except ImportError:
++            Logger.warn(
++                "couldn't import certifi, you will likely fail to do https requests"  # noqa
++            )
+ 
+     if platform == 'android':
+         Config.set('input', 'androidtouch', 'android')
